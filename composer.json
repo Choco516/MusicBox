@@ -16,6 +16,7 @@
 			"app/tests/TestCase.php"
 		]
 	},
+
 	"scripts": {
 		"post-install-cmd": [
 			"php artisan clear-compiled",
@@ -34,3 +35,9 @@
 	},
 	"minimum-stability": "stable"
 }
+{
+    "require": {
+        "videlalvaro/php-amqplib": "v2.1.0"
+    }
+}
+
