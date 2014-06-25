@@ -18,7 +18,8 @@ Route::get('/', function()
 });
 */
 Route::post('/store','HomeController@store');
-Route::get('/destroy/{id}','HomeController@destroy');
+Route::post('/convert','HomeController@store');
+Route::post('/download','HomeController@store');
 
 
 Route::resource('/','HomeController');

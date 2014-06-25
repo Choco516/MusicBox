@@ -57,11 +57,18 @@
     <form id="file-submit" enctype="multipart/form-data" method="post" action="store">
         <input id="filename" name="filename" type="file"/>
         <input type="submit" value="Guardar" id="file-save" class="btn btn-primary"/>
+        <h2>Choose type to convert:</h2> 
+      <div class="form-control"> 
+        <input type="radio" name="tipo" id="tipo" value="ogg"> OGG
+        <input type="radio" name="tipo" id="tipo" style="margin-left:12%;" value="mp3"> MP3
+        <input type="radio" name="tipo" id="tipo" style=" margin-left:12%; " value="wav"> WAV
+      </div>
     </form>
-    
-    @if(Session::has('message'))
-      <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
-    @endif
+      
+
+      @if(Session::has('message'))
+        <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
+      @endif
   <form>
       <div class="fileUpload btn btn-primary btn-lg active">
       <span>Upload File</span>
