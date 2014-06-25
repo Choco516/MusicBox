@@ -74,14 +74,3 @@
         <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
       @endif
 </div>
-
-
-{{HTML::script('js/jquery.js');}}
-<script type="text/javascript">
-console.log('lol');
-    $(document).ready(function () {
-        $('#Contact').removeClass("active");
-        $('#Contact').addClass("Contact");
-    });
-</script>
-	<script src="//code.jquery.com/jquery.js"></script>

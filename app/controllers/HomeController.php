@@ -26,19 +26,27 @@ class HomeController extends BaseController {
 				$name1 = strlen($name) - 4;
 				$name2 = substr($name,0, $name1);
 
-				if ($selected_radio == "wav")
+				if ($selected_radio==$extension)
 				{
-					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".wav");
-				}
-				elseif($selected_radio == "mp3")
-				{
-					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".mp3");
+					Session::flash('message','can not convert this format file to the same format, select another format');
+					Session::flash('class','danger');
+					return Redirect::to('/');
 				}
 				else
 				{
-					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".ogg");
+					if ($selected_radio == "wav")
+					{
+						exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".wav");
+					}
+					elseif($selected_radio == "mp3")
+					{
+						exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".mp3");
+					}
+					else
+					{
+						exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".ogg");
+					}
 				}
-
 
 				$file= public_path(). "/media/DownloadFiles/". $name2 . "." . $selected_radio;
 				return Response::download($file, $name2 . "." . $selected_radio);

@@ -4,7 +4,6 @@
 	<title>MusicBox</title>
 	<meta name="viewport" content="width-device-width, initial-scale=1.0">
 	{{ HTML::style('assets/css/bootstrap.min.css', array('media' => 'screen')) }}
-  {{ HTML::style('assets/css/menu2.css', array('media' => 'screen')) }}
   {{HTML::script('js/jquery.js');}}
 </head>
 <body>
@@ -19,12 +18,5 @@
           } 
 
     </style>
-    
-
-    
-
-   
-	<script src="//code.jquery.com/jquery.js"></script>
-
 </body>
 </html>	
