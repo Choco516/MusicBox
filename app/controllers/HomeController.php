@@ -2,64 +2,50 @@
 
 class HomeController extends BaseController {
 
-
-	private $folder = "/media/profiles";
-	private $downloadfiles = "/media/DownloadFiles";
-
 	public function index()
 	{
-		$files = File::files($this->folder);
-		$this->layout->nest('content', 'index')->with('images',$files);
+		$this->layout->nest('content', 'index');
 	}
 
 	public function store()
 	{
-
 			$audioFile = Input::file('filename');
 			$name = $audioFile->getClientOriginalName();
-			$extention=$audioFile->getClientOriginalExtension();
-			if($extention=="mp3"||$extention=="wav")
+			$extension=$audioFile->getClientOriginalExtension();
+			if($extension=="mp3"||$extension=="wav"||$extension=="ogg")
 			{
-				$folder = public_path(). "/media/profiles";
+				$profiles = public_path(). "/media/profiles";
 				$downloadfiles = public_path(). "/media/DownloadFiles";
-				$upload = $audioFile->move($folder,$name);
-				$selected_radio = $_POST['tipo'];
-				$largo = strlen($name) - 4;
-				$name2 = substr($name,0, $largo);
-				if ($selected_radio == "wav")
-				{
-					exec ("sudo sox " . $folder . "/".$name . " ". $downloadfiles . "/". $name2 . ".wav");
-				}elseif($selected_radio == "MP3")
-				{
-					exec ("sudo sox " . $folder . "/".$name . " ". $downloadfiles . "/". $name2 . ".mp3");
-				}else
-				{
-					exec ("sudo sox " . $folder . "/".$name . " ". $downloadfiles . "/". $name2 . ".ogg");
-				}
-				
-				
-				$file= public_path(). "/media/DownloadFiles/". $name2 . "." . $selected_radio;
-					$headers = array(
-					'Content-Type: audio/mp3',
-				);
-				return Response::download($file, $name2 . "." . $selected_radio, $headers);
-
+				$upload = $audioFile->move($profiles,$name);
 				$audio = new audio;
 				$audio->nombre = $name;
-				$audio->audio = Input::file('filename');
-				
+				$audio->audio = $audioFile;
+				$audio->save();
+
+				$selected_radio = $_POST['tipo'];
+				$name1 = strlen($name) - 4;
+				$name2 = substr($name,0, $name1);
+
+				if ($selected_radio == "wav")
+				{
+					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".wav");
+				}
+				elseif($selected_radio == "mp3")
+				{
+					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".mp3");
+				}
+				else
+				{
+					exec ("sudo sox " . $profiles . "/".$name . " ". $downloadfiles . "/". $name2 . ".ogg");
+				}
 
 
-				if ($audio->save()) {
-					Session::flash('message','Guardado correctamente');
-					Session::flash('class','success');
-				} else {
-					Session::flash('message','Error al guardar');
-					Session::flash('class','danger');
-				}	
-			}else
+				$file= public_path(). "/media/DownloadFiles/". $name2 . "." . $selected_radio;
+				return Response::download($file, $name2 . "." . $selected_radio);
+			}
+			else
 			{
-				Session::flash('message','Archivo Incompatible');
+				Session::flash('message','Incompatible file, please select an audio file with MP3, WAV or OGG extension');
 				Session::flash('class','danger');
 			}
 		return Redirect::to('/');

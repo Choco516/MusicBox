@@ -3,9 +3,10 @@
     <script src="js/functions.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-                $(".panel").slideToggle("slow");
+                $(".panel").fadeIn('slow');
         });
     </script>
+
 <style type="text/css">
 
         div.panel,p.flip {
@@ -14,7 +15,7 @@
           background-color: rgba(7, 3, 3, 0.27);
           border: solid 1px #fff;
           width:60%;
-          height: 60%;
+          height: 65%;
           display: none;
           position: absolute;
           top: 50%; 
@@ -46,40 +47,32 @@
   <div class="panel">
     <br>
     <br>
-        <h1>Music</h1>
-    <br>
+        <h1>Music Box</h1>
 
   	<div class="progress progress-striped active">
-    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-      <span class="sr-only">45% Complete</span>
+    <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      <span class="sr-only">100% Complete</span>
     </div>
   </div>
     <form id="file-submit" enctype="multipart/form-data" method="post" action="store">
         <input id="filename" name="filename" type="file"/>
-        <input type="submit" value="Guardar" id="file-save" class="btn btn-primary"/>
-        <h2>Choose type to convert:</h2> 
-      <div class="form-control"> 
-        <input type="radio" name="tipo" id="tipo" value="ogg"> OGG
-        <input type="radio" name="tipo" id="tipo" style="margin-left:12%;" value="mp3"> MP3
-        <input type="radio" name="tipo" id="tipo" style=" margin-left:12%; " value="wav"> WAV
-      </div>
-    </form>
-      
-
-      @if(Session::has('message'))
-        <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
-      @endif
-  <form>
-      <div class="fileUpload btn btn-primary btn-lg active">
+        <h2>Audio format to convert</h2> 
+        <div class="form-control"> 
+          <input type="radio" name="tipo" id="tipo" value="ogg" required> OGG
+          <input type="radio" name="tipo" id="tipo" style="margin-left:12%;" value="mp3" required> MP3
+          <input type="radio" name="tipo" id="tipo" style=" margin-left:12%; " value="wav" required> WAV
+        </div>
+        <div class="fileUpload btn btn-primary btn-lg active">
       <span>Upload File</span>
-      <input type="file" class="upload" name="file"/>
+      <input type="submit" class="upload" name="file" value="Upload File" id="file-save"/>
       </div>
       <button type="button" class="btn btn-success btn-lg active">Download File</button>
       <br>
-  </form>
-  
 
-<h1>Box</h1>
+    </form>
+      @if(Session::has('message'))
+        <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
+      @endif
 </div>
 
 
